@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -35,6 +37,25 @@ public class Player : MonoBehaviour
     void Boost()
     {
         surfaceEffector2D.speed = playerYInput > 0 ? boostSpeed : baseSpeed;
+    }
+    public void Stop()
+    {
+        StartCoroutine(SlowDown());
+    }
+    IEnumerator SlowDown()
+    {
+        float duration = 1.5f; // Time in seconds to fully stop
+        float startSpeed = surfaceEffector2D.speed;
+        float timeElapsed = 0f;
+
+        while (timeElapsed < duration)
+        {
+            surfaceEffector2D.speed = Mathf.Lerp(startSpeed, 0, timeElapsed / duration);
+            timeElapsed += Time.deltaTime;
+            yield return null; // Wait for the next frame
+        }
+
+        surfaceEffector2D.speed = 0; // Ensure it fully stops
     }
     void OnMove(InputValue value)
     {

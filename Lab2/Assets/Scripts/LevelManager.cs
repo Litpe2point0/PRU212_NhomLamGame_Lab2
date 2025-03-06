@@ -4,23 +4,19 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
+    ScoreKeeper scoreKeeper;
+    private void Awake()
+    {
+        scoreKeeper = FindFirstObjectByType<ScoreKeeper>();
+    }
     public void LoadStage1(float delay)
     {
+        scoreKeeper.ResetScore();
         StartCoroutine(WaitAndLoad("Stage1", delay));
     }
-    public void LoadGameOver(float delay)
-    {
-        StartCoroutine(WaitAndLoad("GameOver", delay));
-    }
-
-    public void LoadWin()
-    {
-        SceneManager.LoadScene("Win");
-    }
-
     public void QuitGame()
     {
-        Application.Quit(); //Work for standalone builds
+        Application.Quit();
     }
     IEnumerator WaitAndLoad(string sceneName, float delay)
     {

@@ -4,12 +4,12 @@ public class CrashDetector : MonoBehaviour
 {
     [SerializeField] float delay;
     [SerializeField] AudioClip crashSFX;
-    LevelManager levelManager;
     SpecialEffect specialEffect;
     bool isCrash = false;
+    UIManager manager;
     private void Awake()
     {
-        levelManager = FindFirstObjectByType<LevelManager>();
+        manager = FindFirstObjectByType<UIManager>();
         specialEffect = GetComponent<SpecialEffect>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -18,9 +18,10 @@ public class CrashDetector : MonoBehaviour
         {
             isCrash = true;
             FindFirstObjectByType<Player>().DisableControls();
+            FindFirstObjectByType<Player>().Stop();
             specialEffect.PlayEffect();
             GetComponent<AudioSource>().PlayOneShot(crashSFX);
-            levelManager.LoadStage1(delay);
+            manager.ShowGameOver();
         }
     }
 }

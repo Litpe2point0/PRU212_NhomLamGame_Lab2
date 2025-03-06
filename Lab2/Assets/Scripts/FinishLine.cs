@@ -5,8 +5,10 @@ public class FinishLine : MonoBehaviour
     [SerializeField] float delay;
     LevelManager levelManager;
     SpecialEffect specialEffect;
+    UIManager manager;
     private void Awake()
     {
+        manager = FindFirstObjectByType<UIManager>();
         levelManager = FindFirstObjectByType<LevelManager>();
         specialEffect = GetComponent<SpecialEffect>();
     }
@@ -16,7 +18,9 @@ public class FinishLine : MonoBehaviour
         {
             specialEffect.PlayEffect();
             GetComponent<AudioSource>().Play();
-            levelManager.LoadStage1(delay);
+            FindFirstObjectByType<Player>().DisableControls();
+            FindFirstObjectByType<Player>().Stop();
+            manager.ShowWin();
         }
     }
 }
