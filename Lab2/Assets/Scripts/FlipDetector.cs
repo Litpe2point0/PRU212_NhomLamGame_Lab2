@@ -31,7 +31,7 @@ public class FlipScore : MonoBehaviour
             accumulatedRotation += rotationDifference;
 
             // Check if a full 360� flip is completed
-            if (Mathf.Abs(accumulatedRotation) >= 360f)
+            if (Mathf.Abs(accumulatedRotation) >= 280f)
             {
                 flipCount++; // Increase flip counter
 

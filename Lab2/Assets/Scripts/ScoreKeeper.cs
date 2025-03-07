@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.Rendering;
 
 public class ScoreKeeper : MonoBehaviour
 {
     int score;
     static ScoreKeeper instance;
     LevelManager levelManager;
-
+    private const string HighScore = "HighScore";
     private void Awake()
     {
         ManageSingleton();
@@ -21,7 +22,7 @@ public class ScoreKeeper : MonoBehaviour
 
     void Start()
     {
-
+        PlayerPrefs.GetFloat(HighScore, score);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -46,7 +47,27 @@ public class ScoreKeeper : MonoBehaviour
     {
         return score;
     }
-
+    public void SetHighScore()
+    {
+        if (CheckHighScore(score))
+        {
+            PlayerPrefs.SetFloat(HighScore, score);
+            PlayerPrefs.Save();
+        };
+    }
+    public bool CheckHighScore(int score)
+    {
+        var temp = PlayerPrefs.GetFloat(HighScore);
+        if (score > temp)
+        {
+            return true;
+        }
+        return false;
+    }
+    public int GetHighScore()
+    {
+        return (int)PlayerPrefs.GetFloat(HighScore, score);
+    }
     public void ModifyScore(int value)
     {
         score += value;

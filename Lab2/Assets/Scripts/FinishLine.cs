@@ -6,8 +6,10 @@ public class FinishLine : MonoBehaviour
     LevelManager levelManager;
     SpecialEffect specialEffect;
     UIManager manager;
+    ScoreKeeper scoreKeeper;
     private void Awake()
     {
+        scoreKeeper = FindFirstObjectByType<ScoreKeeper>();
         manager = FindFirstObjectByType<UIManager>();
         levelManager = FindFirstObjectByType<LevelManager>();
         specialEffect = GetComponent<SpecialEffect>();
@@ -20,6 +22,7 @@ public class FinishLine : MonoBehaviour
             GetComponent<AudioSource>().Play();
             FindFirstObjectByType<Player>().DisableControls();
             FindFirstObjectByType<Player>().Stop();
+            scoreKeeper.SetHighScore();
             manager.ShowWin();
         }
     }

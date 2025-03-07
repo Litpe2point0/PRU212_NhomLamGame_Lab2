@@ -7,8 +7,10 @@ public class CrashDetector : MonoBehaviour
     SpecialEffect specialEffect;
     bool isCrash = false;
     UIManager manager;
+    ScoreKeeper scoreKeeper;
     private void Awake()
     {
+        scoreKeeper = FindFirstObjectByType<ScoreKeeper>();
         manager = FindFirstObjectByType<UIManager>();
         specialEffect = GetComponent<SpecialEffect>();
     }
@@ -21,6 +23,7 @@ public class CrashDetector : MonoBehaviour
             FindFirstObjectByType<Player>().Stop();
             specialEffect.PlayEffect();
             GetComponent<AudioSource>().PlayOneShot(crashSFX);
+            scoreKeeper.SetHighScore();
             manager.ShowGameOver();
         }
     }

@@ -7,6 +7,7 @@ public class UIDisplay : MonoBehaviour
 {
     [Header("Score")]
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI highScore;
     [SerializeField] GameObject scorePoint;
     [SerializeField] Transform scorePointParent;
     ScoreKeeper scoreKeeper;
@@ -18,6 +19,7 @@ public class UIDisplay : MonoBehaviour
  
     void Update()
     {
+        highScore.text = "High Score: " + scoreKeeper.GetHighScore().ToString();
         scoreText.text = scoreKeeper.GetScore().ToString("00000000");
     }
     public void ShowPoint(int score)
