@@ -7,7 +7,7 @@ public class FlipScore : MonoBehaviour
     private float accumulatedRotation = 0f;
     private int flipCount = 0;
     private bool isAirborne = false;
-
+    [SerializeField] AudioClip audioClip;
     private ScoreKeeper scoreKeeper;
     private UIDisplay uiDisplay;
     private Rigidbody2D rb;
@@ -39,7 +39,7 @@ public class FlipScore : MonoBehaviour
                 float scoreToAdd = baseFlipScore + 50f * (flipCount - 1);
                 scoreKeeper.ModifyScore(Mathf.RoundToInt(scoreToAdd));
                 uiDisplay.ShowPoint(Mathf.RoundToInt(scoreToAdd));
-
+                GetComponent<AudioSource>().PlayOneShot(audioClip);
                 accumulatedRotation = 0f; // Reset rotation accumulation
             }
         }

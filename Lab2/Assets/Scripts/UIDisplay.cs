@@ -20,7 +20,7 @@ public class UIDisplay : MonoBehaviour
     void Update()
     {
         highScore.text = "High Score: " + scoreKeeper.GetHighScore().ToString();
-        scoreText.text = scoreKeeper.GetScore().ToString("00000000");
+        scoreText.text = scoreKeeper.GetScore() < 0 ? scoreKeeper.GetScore().ToString() : scoreKeeper.GetScore().ToString("00000000");
     }
     public void ShowPoint(int score)
     {
@@ -31,7 +31,15 @@ public class UIDisplay : MonoBehaviour
         TextMeshProUGUI pointText = point.GetComponentInChildren<TextMeshProUGUI>();
         if (pointText != null)
         {
-            pointText.text = "+" + score.ToString();
+            if (score < 0)
+            {
+                pointText.color = Color.red;
+                pointText.text = score.ToString();
+            }
+            else
+            { 
+                pointText.text = "+" + score.ToString();
+            }
         }
 
         // Start the fade-out and movement effect

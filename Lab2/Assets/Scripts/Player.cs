@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb2d;
     SurfaceEffector2D surfaceEffector2D;
     bool canMove = true;
+    bool canBoost = true;
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
@@ -23,12 +24,23 @@ public class Player : MonoBehaviour
         if (canMove)
         {
             Rotate();
-            Boost();
+            if (canBoost)
+            {
+                Boost();
+            }
         }
     }
     public void DisableControls()
     {
         canMove = false;
+    }
+    public void DisableBoost()
+    {
+        canBoost = false;
+    }
+    public void EnableBoost()
+    {
+        canBoost = true;
     }
     void Rotate()
     {
@@ -37,6 +49,7 @@ public class Player : MonoBehaviour
     void Boost()
     {
         surfaceEffector2D.speed = playerYInput > 0 ? boostSpeed : baseSpeed;
+        surfaceEffector2D.forceScale = playerYInput > 0 ? (float)0.05 : (float)0.02;
     }
     public void Stop()
     {

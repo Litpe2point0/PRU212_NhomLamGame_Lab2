@@ -71,7 +71,8 @@ public class ScoreKeeper : MonoBehaviour
     public void ModifyScore(int value)
     {
         score += value;
-        score = Mathf.Clamp(score, 0, int.MaxValue);
+        score = Mathf.Clamp(score, int.MinValue, int.MaxValue);
+        SetHighScore();
     }
 
     public void ResetScore()

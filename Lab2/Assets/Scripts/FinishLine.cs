@@ -22,7 +22,6 @@ public class FinishLine : MonoBehaviour
             GetComponent<AudioSource>().Play();
             FindFirstObjectByType<Player>().DisableControls();
             FindFirstObjectByType<Player>().Stop();
-            scoreKeeper.SetHighScore();
             manager.ShowWin();
         }
     }

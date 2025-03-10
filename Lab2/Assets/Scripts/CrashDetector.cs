@@ -23,7 +23,6 @@ public class CrashDetector : MonoBehaviour
             FindFirstObjectByType<Player>().Stop();
             specialEffect.PlayEffect();
             GetComponent<AudioSource>().PlayOneShot(crashSFX);
-            scoreKeeper.SetHighScore();
             manager.ShowGameOver();
         }
     }
